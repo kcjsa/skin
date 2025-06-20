@@ -11,7 +11,6 @@ const skins = [
   { name: "配布10", thumbnail: "配布10m.png", file: "配布10.png" },
   { name: "配布11", thumbnail: "配布11m.png", file: "配布11.png" },
   { name: "配布12", thumbnail: "配布12m.png", file: "配布12.png" },
-
 ];
 
 const container = document.getElementById("skin-list");
@@ -20,21 +19,21 @@ skins.forEach(skin => {
   const card = document.createElement("div");
   card.className = "skin-card";
 
+  // 画像をダウンロードリンクにする
+  const link = document.createElement("a");
+  link.href = `skins/${skin.file}`;
+  link.download = skin.file;
+
   const img = document.createElement("img");
   img.src = `thumbnails/${skin.thumbnail}`;
   img.alt = skin.name;
 
+  link.appendChild(img); // <a><img></a>
+
   const title = document.createElement("p");
   title.textContent = skin.name;
 
-  const btn = document.createElement("a");
-  btn.href = `skins/${skin.file}`;
-  btn.download = skin.file;
-  btn.className = "download-btn";
-  btn.textContent = "ダウンロード";
-
-  card.appendChild(img);
-  card.appendChild(title);
-  card.appendChild(btn);
-  container.appendChild(card);
+  card.appendChild(link);      // 画像クリックでDL
+  card.appendChild(title);     // タイトル
+  container.appendChild(card); // カードを追加
 });
